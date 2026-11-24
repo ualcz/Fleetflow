@@ -11,7 +11,7 @@ const iniciarServidor = async () => {
   try {
     // Testar conexão com o Prisma
     await prisma.$connect();
-    console.log('Conectado ao banco de dados PostgreSQL via Prisma.');
+    console.log('Conectado ao banco de dados MySQL via Prisma.');
 
     const server = app.listen(PORT, () => {
       console.log(`🚀 FleetFlow API rodando em http://localhost:${PORT}`);

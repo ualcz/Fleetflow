@@ -26,7 +26,7 @@
 
 ## 1. Visão Geral do Projeto
 
-O FleetFlow é um sistema completo de gerenciamento de frotas construído com Node.js, Express, Prisma e PostgreSQL no backend, e React + Vite + Zustand no frontend.
+O FleetFlow é um sistema completo de gerenciamento de frotas construído com Node.js, Express, Prisma e MySQL no backend, e React + Vite + Zustand no frontend.
 
 O sistema segue uma **arquitetura modular no backend** acoplada a um painel frontend em React, garantindo separação clara entre interface de usuário, regras de negócio e persistência de dados. **O frontend nunca se comunica diretamente com o banco de dados** — todas as operações trafegam exclusivamente pela API do backend.
 
@@ -52,7 +52,7 @@ Frontend (React + Zustand + Axios)
 Backend API (Express + Prisma)
             │
             ▼
-    Banco PostgreSQL
+    Banco MySQL
 ```
 
 ### Princípios de Design
@@ -80,7 +80,7 @@ Ação do Usuário (React UI)
       │
       ▼  Prisma ORM
       │
-      ▼  Banco PostgreSQL
+      ▼  Banco MySQL
       │
       ▼  Resposta padronizada: { success, message, data }
 ```
@@ -96,7 +96,7 @@ Ação do Usuário (React UI)
 | Node.js | Ambiente de execução JavaScript |
 | Express | Framework HTTP e middlewares |
 | Prisma ORM | Mapeador objeto-relacional com tipagem estrita |
-| PostgreSQL | Banco de dados relacional |
+| MySQL | Banco de dados relacional |
 | Zod | Validação de esquemas e dados de entrada |
 | jsonwebtoken | Emissão e validação de tokens JWT |
 | bcryptjs | Criptografia e hashing seguro de senhas |
@@ -120,7 +120,7 @@ Ação do Usuário (React UI)
 ### Pré-requisitos
 
 - Node.js v18+
-- PostgreSQL 14+
+- MySQL 8+
 - npm ou yarn
 
 ### Variáveis de Ambiente
@@ -128,11 +128,13 @@ Ação do Usuário (React UI)
 Crie um arquivo `.env` na raiz do projeto:
 
 ```env
-DATABASE_URL="postgresql://usuario:senha@localhost:5432/fleetflow"
+DATABASE_URL="mysql://root@localhost:3306/fleetflow"
 JWT_SECRET="sua-chave-secreta-longa-e-segura"
 JWT_EXPIRES_IN="7d"
 PORT=5000
 ```
+
+Se o usuário `root` do MySQL tiver senha, inclua-a na URL: `mysql://root:sua_senha@localhost:3306/fleetflow`.
 
 ### Inicialização do Backend
 
@@ -140,8 +142,8 @@ PORT=5000
 # Instalar dependências
 npm install
 
-# Aplicar migrações no banco de dados
-npx prisma migrate dev --name init
+# Aplicar as migrações MySQL no banco local
+npx prisma migrate dev
 
 # Iniciar o servidor em modo de desenvolvimento
 npm run dev
