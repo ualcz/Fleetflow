@@ -1,13 +1,13 @@
 const express = require('express');
-const { authenticateToken, authorizeRoles } = require('../../middleware/auth');
-const { create, getAll, complete } = require('./maintenance.controller');
+const { autenticarToken, autorizarPerfis } = require('../../middleware/auth');
+const { criar, listar, concluir } = require('./maintenance.controller');
 
 const router = express.Router();
 
-router.use(authenticateToken);
+router.use(autenticarToken);
 
-router.get('/', getAll);
-router.post('/', authorizeRoles('MANAGER', 'SAFETY'), create);
-router.patch('/:id/complete', authorizeRoles('MANAGER', 'SAFETY'), complete);
+router.get('/', listar);
+router.post('/', autorizarPerfis('MANAGER', 'SAFETY'), criar);
+router.patch('/:id/complete', autorizarPerfis('MANAGER', 'SAFETY'), concluir);
 
 module.exports = router;

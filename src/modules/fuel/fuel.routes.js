@@ -1,13 +1,13 @@
 const express = require('express');
-const { authenticateToken, authorizeRoles } = require('../../middleware/auth');
-const { create, getAll, getByVehicle } = require('./fuel.controller');
+const { autenticarToken, autorizarPerfis } = require('../../middleware/auth');
+const { criar, listar, listarPorVeiculo } = require('./fuel.controller');
 
 const router = express.Router();
 
-router.use(authenticateToken);
+router.use(autenticarToken);
 
-router.get('/', getAll);
-router.get('/vehicle/:vehicleId', getByVehicle);
-router.post('/', authorizeRoles('MANAGER', 'FINANCE', 'DISPATCHER'), create);
+router.get('/', listar);
+router.get('/vehicle/:vehicleId', listarPorVeiculo);
+router.post('/', autorizarPerfis('MANAGER', 'FINANCE', 'DISPATCHER'), criar);
 
 module.exports = router;

@@ -1,12 +1,12 @@
 const express = require('express');
-const { authenticateToken } = require('../../middleware/auth');
-const { dashboard, vehicleAnalytics } = require('./analytics.controller');
+const { autenticarToken } = require('../../middleware/auth');
+const { dashboard, analiticoPorVeiculo } = require('./analytics.controller');
 
 const router = express.Router();
 
-router.use(authenticateToken);
+router.use(autenticarToken);
 
 router.get('/dashboard', dashboard);
-router.get('/vehicle/:id', vehicleAnalytics);
+router.get('/vehicle/:id', analiticoPorVeiculo);
 
 module.exports = router;

@@ -1,19 +1,19 @@
 const express = require('express');
-const { authenticateToken, authorizeRoles } = require('../../middleware/auth');
-const { create, getAll, getOne, update, remove } = require('./vehicle.controller');
+const { autenticarToken, autorizarPerfis } = require('../../middleware/auth');
+const { criar, listar, buscar, atualizar, remover } = require('./vehicle.controller');
 
 const router = express.Router();
 
 // All vehicle routes require authentication
-router.use(authenticateToken);
+router.use(autenticarToken);
 
 // GET /vehicles           – All authenticated users can view
-router.get('/', getAll);
-router.get('/:id', getOne);
+router.get('/', listar);
+router.get('/:id', buscar);
 
 // POST/PATCH/DELETE       – MANAGER only
-router.post('/', authorizeRoles('MANAGER'), create);
-router.patch('/:id', authorizeRoles('MANAGER'), update);
-router.delete('/:id', authorizeRoles('MANAGER'), remove);
+router.post('/', autorizarPerfis('MANAGER'), criar);
+router.patch('/:id', autorizarPerfis('MANAGER'), atualizar);
+router.delete('/:id', autorizarPerfis('MANAGER'), remover);
 
 module.exports = router;

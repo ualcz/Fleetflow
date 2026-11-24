@@ -1,17 +1,17 @@
 const express = require('express');
-const { authenticateToken, authorizeRoles } = require('../../middleware/auth');
-const { create, getAll, getOne, update } = require('./driver.controller');
+const { autenticarToken, autorizarPerfis } = require('../../middleware/auth');
+const { criar, listar, buscar, atualizar } = require('./driver.controller');
 
 const router = express.Router();
 
-router.use(authenticateToken);
+router.use(autenticarToken);
 
 // GET: all authenticated roles
-router.get('/', getAll);
-router.get('/:id', getOne);
+router.get('/', listar);
+router.get('/:id', buscar);
 
 // POST/PATCH: MANAGER or SAFETY
-router.post('/', authorizeRoles('MANAGER', 'SAFETY'), create);
-router.patch('/:id', authorizeRoles('MANAGER', 'SAFETY'), update);
+router.post('/', autorizarPerfis('MANAGER', 'SAFETY'), criar);
+router.patch('/:id', autorizarPerfis('MANAGER', 'SAFETY'), atualizar);
 
 module.exports = router;
